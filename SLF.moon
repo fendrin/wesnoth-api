@@ -1,0 +1,105 @@
+----
+-- @module wesmere
+
+----
+-- From FilterWSL, this is the standard way of filtering on locations. The term StandardLocationFilter means that the set of such keys and tags (see below) can appear at that point. Sometimes a StandardLocationFilter needs to be included in a [filter_location] tag. There are however many tags which accept the StandardLocationFilter directly as an argument such as [store_locations]. Generally, if the tag [filter_location] is not mentioned to be a possible subtag of the outer tag in question, then don't put it.
+-- The following attributes and sub-tags are permitted:
+-- @table StandardLocationFilter
+-- @string time_of_day filter matches only on a given time of day (one of lawful, chaotic, or neutral). Note: chaotic, lawful, and neutral; these are not times of day, these are alignments. To match against 'dawn', 'dusk', 'first watch' etc., use the time_of_day_id key described below.
+-- @string time_of_day_id this accepts a list of one or more actual times of day, separated by commas. These IDs are taken from data/core/macros/schedules.cfg. Permissible values are case-sensitive: dawn, morning, afternoon, dusk, first_watch, second_watch, indoors, underground and deep_underground.
+-- @tparam {string,..} terrain comma separated list of terrains. (See also: Filtering Terrains).
+-- @number x
+-- @number y the same as in the unit filter; supports any range (notes)
+-- @string area matches locations assigned to the [time_area] with the given id.
+-- @bool include_borders (Version 1.13.0 and later only) whether the SLF will include border hexes or not. Will override the default behavior of the tag this appears in.
+-- @tparam StandardUnitFilter filter if present a unit must also be there
+-- @number owner_side If a valid side number, restricts stored locations to villages belonging to this side. If 0, restricts to all unowned locations (the whole map except villages which belong to some valid side). A hex is considered a village if and only if its [ terrain_type ]gives_income= parameter was set to yes (which means a side can own that hex).
+-- [filter_vision]: this tests whether or not the location is currently visible
+-- @bool visible yes or no, default yes. "yes" filters for visible locations, "no" filters for invisible locations.
+-- @bool respect_fog yes or no, default yes. "yes" filters for locations that are clear of both fog and shroud, "no" filters for locations that are clear of shroud.
+-- StandardSideFilter tags and keys as arguments. If there is *at least one* matching side which can see the location then the filter matches, and otherwise it fails to match.
+-- [filter_owner]: If present, inline owner_side= is ignored. Restricts stored locations to villages, each of which must belong to any of the matching sides. If no sides match, restricts to unowned villages (and only these).
+-- StandardSideFilter tags and keys as arguments
+-- find_in: name of an array or container variable; if present, the location will not match unless it is also found stored in the variable
+-- radius: matches if any location within the radius matches this filter (notes)
+-- @tparam StandardLocationFilter filter_radius a standard location filter; normally the radius extends outwards from matching locations one step at a time without checking any additional information-- however, if this tag is present, the radius will be restricted so that it can only expand outwards in the directions where it passes the given location filter
+-- @tparam StandardLocationFilter and an extra location filter. Unless a location matches the [and] filter, then it will be excluded. Note: [and],[or],and [not] extra location filters are considered after everything else in the containing filter (except radius, which is considered last in 1.3.8 and greater); they are then processed in the order encountered.
+-- @tparam StandardLocationFilter or an extra location filter. If a location matches the [or] filter, then it will count as a match regardless of conditions in previous filters or the containing filter.
+-- @tparam StandardLocationFilter not an extra location filter. If a location matches the [not] filter, then that location will be excluded.
+-- @tparam StandardLocationFilter filter_adjacent_location a standard location filter; if present the correct number of adjacent locations must match this filter
+-- @tparam number|range|{range,...} count a number, range, or comma separated range; default "1-6"
+-- @tparam {string,...} adjacent a comma separated list of directions; default "n,ne,se,s,sw,nw" (see notes)
+
+-- Notes about Coordinate Usage
+
+-- When specifying coordinates, the following keys are used:
+-- x: the first coordinate
+-- y: the second coordinate
+-- While some locations should only be one hex (like the starting position of a unit), others filter over multiple hexes. The following syntax is used to filter over multiple hexes:
+-- Dashes(-) are used to have the location be a range of hexes. There must be values before and after the dash; everything in between these numbers (inclusively) is part of the range.
+-- Commas(,) are used to separate coordinates into a list. The x and y lists are then paired up, with each pair representing one hex or range. E.g. in order to specify multiple locations 1,4 and 2,5, use:
+--  [tag]
+--      x=1,2
+--      y=4,5
+--  [/tag]
+-- Note: although the ordering of locations in a list generally does not matter, the action [move_unit_fake] takes in a list of hexes, and moves an image onto each of those hexes in order.
+-- Notes about Radius Usage
+
+-- If you aren't storing any locations successfully, it may be because you put the radius or filters in the wrong place for them to combine correctly.
+--  [have_location]
+--  terrain=Gg^Vh
+--  [and]
+--    x=$x1
+--    y=$y1
+--    radius=1
+--  [/and]
+--  [/have_location]
+-- Note that the use of [and] here causes the radius to have a very different meaning. Normally, all of the criteria besides radius are checked, producing a set of hexes to which the radius is applied. This means, for example, that if you're trying to find "a hex without a unit on it within 5 hexes of (15, 23)", the code:
+--  [have_location]
+--  x,y=15,23
+--  radius=5
+--  [not]
+--    [filter]
+--    [/filter]
+--  [/not]
+--  [have_location]
+-- will not work! First, it looks for a hex with x=15, y=23 without a unit on it. Then, it returns that hex and all hexes within 5 of it. If (15, 23) happens to be occupied, then it will return no hexes, because "all hexes within 5 hexes of (no hexes)" is still "no hexes". Instead, put an [and] around the x,y and radius requirements, and it will separately find "(15, 23) and all hexes within 5 of it" and "each of those hexes that doesn't have a unit on it", producing the desired result.
+-- Directions
+
+-- Some attributes expect a direction or list of directions. Valid base directions are n, ne, nw, s, se, sw, and there are three operators supported as well:
+-- To take the opposite direction, use - (eg -n is the same as s)
+-- (Version 1.13.2 and later only) To rotate clockwise, use :cw (eg n:cw is the same as ne)
+-- (Version 1.13.2 and later only) To rotate counterclockwise, use :ccw (eg n:ccw is the same as nw)
+-- You can't apply multiple rotation operators - for example, "n:cw:ccw" is not a valid direction. If for some reason you really need multiple rotations, you can use parentheses (so, "(n:cw):ccw" is valid and is the same as n). Similarly, "--n" is not valid, but "-(-n)" is valid and is the same as n.
+-- This syntax is mainly useful when used in conjunction with variable substitution in the adjacent key in [filter_adjacent_location] and in [filter_adjacent] (in StandardUnitFilter), but will work anywhere a direction is expect. For example, using [modify_unit] to change a unit's direction:
+--  [modify_unit]
+--      [filter]
+--          # ... Whatever filter you need
+--      [/filter]
+--      facing=-$this_unit.facing
+--  [/modify_unit]
+-- That will cause the matched units to turn around.
+-- Filtering Terrains
+
+-- The terrain= key allows you to filter based on the terrain of a space, for example:
+-- [event]
+--     [filter]
+--         [filter_location]
+--             terrain=Ch
+--         [/filter_location]
+--     [/filter]
+-- [/event]
+-- At some places the terrains can be filtered with a match list. The list is a comma separated list and matching will stop at the first matched terrain string. There's one special character ! which inverts the meaning of a match. Terrain strings can use the wildcard * to match zero or more following letters, characters behind the * are not allowed and the result is undefined.
+-- Example 1:
+-- ww* matches ww, www, wwW but not WWW
+-- !, ww returns false if ww found and true if not
+-- !, ww, wa, !, aa returns false if ww or wa found and true if aa found and false if none found.
+
+-- Example 2:
+-- *^V* matches all village-terrain
+-- Notice how the * can be used separately for both layers (base and overlay layers are separated by the ^-character).
+
+-- For a list of terrain types and their string codes see TerrainCodesWSL.
+-- See Also
+
+-- Examples - How to use filters
