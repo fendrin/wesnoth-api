@@ -64,11 +64,7 @@ read_data_tree = () =>
             @Data.Color_Palette = cfg
 
         .Game_Config = (cfg) ->
-            -- assert(false)
-            -- require'moon'.p(cfg)
             for key, value in pairs cfg
-                print"#{key}: #{value}"
-                -- assert(false)
                 @Data.Game_Config[key] = value
         .Textdomain = ->
         .Campaign = (cfg) ->
