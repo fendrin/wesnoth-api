@@ -1,5 +1,5 @@
 ----
--- Copyright (C) 2018 by Fabian Mueller <fendrin@gmx.de>
+-- Copyright (C) 2014 - 2018 by David White <dave@whitevine.net>
 -- SPDX-License-Identifier: GPL-2.0+
 
 
