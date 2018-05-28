@@ -1,3 +1,7 @@
+----
+-- Copyright (C) 2018 by Fabian Mueller <fendrin@gmx.de>
+-- SPDX-License-Identifier: GPL-2.0+
+
 import Terrain_Info, Parameters from require"Terrain_Info"
 
 ----

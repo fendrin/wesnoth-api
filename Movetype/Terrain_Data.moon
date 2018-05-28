@@ -1,4 +1,6 @@
--- @todo copyright header
+----
+-- Copyright (C) 2014 - 2018 by David White <dave@whitevine.net>
+-- SPDX-License-Identifier: GPL-2.0+
 
 -- local ERR_CF
 t_translation = require"wesnoth.terrain.translation"
