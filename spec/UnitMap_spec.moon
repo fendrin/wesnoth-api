@@ -1,3 +1,7 @@
+----
+-- Copyright (C) 2018 by Fabian Mueller <fendrin@gmx.de>
+-- SPDX-License-Identifier: GPL-2.0+
+
 
 UnitMap = require "unit_map"
 Unit = require "Unit"
