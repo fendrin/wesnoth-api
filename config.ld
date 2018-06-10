@@ -1,3 +1,2 @@
-project=wesmere
-title="WSL API Reference"
-
+project=wesnoth-love
+title="Moonscript/Lua API Reference"
