@@ -9,7 +9,7 @@
 -- import content from require "server.wesnoth.wesmods"
 dir = (...)\match"(.-)[^%.]+$"
 import try from require "#{dir}.misc"
-Location = require "shared.Location"
+Location = require"Location"
 
 BORDER_SIZE = 1
 
