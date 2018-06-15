@@ -2,6 +2,10 @@
 -- Copyright (C) 2018 by Fabian Mueller <fendrin@gmx.de>
 -- SPDX-License-Identifier: GPL-2.0+
 
+package.moonpath ..= ";./?/init.moon"
+describe = describe
+it = it
+
 actions = require "actions"
 
 describe "actions", ->
@@ -15,7 +19,7 @@ describe "actions", ->
 
         event =
             name: "MyEvent"
-            command: ->
+            do: ->
                 return 5
 
         it "add MyEvent", ->
