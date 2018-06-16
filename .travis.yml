@@ -16,9 +16,9 @@ sudo: false
 
 install:
     - sudo apt-get install luarocks
-    - luarocks install busted
+    - sudo luarocks install busted
     # - luarocks install https://luarocks.org/manifests/olivine-labs/busted-2.0.rc11-0.rockspec
-    - luarocks install loadkit
-    - luarocks install moonscript
+    - sudo luarocks install loadkit
+    - sudo luarocks install moonscript
 
 script: busted
