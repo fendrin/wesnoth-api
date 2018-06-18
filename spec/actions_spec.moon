@@ -6,7 +6,7 @@ package.moonpath ..= ";./?/init.moon"
 describe = describe
 it = it
 
-actions = require "actions"
+actions = require "api.actions"
 
 describe "actions", ->
 

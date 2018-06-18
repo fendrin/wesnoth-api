@@ -9,7 +9,7 @@ HasGetters = require "HasGetters"
 dir = (...)\match"(.-)[^%.]+$"
 -- UnitMap = require "#{dir}.unit_map"
 
-import wrapInArray from require "#{dir}.misc"
+import wrapInArray from require "api.misc"
 -- import try, wrapInArray from require "server.wesnoth.misc"
 -- import wsl_error        from require "server.wesnoth.actions"
 -- import board            from require "server.wesnoth.map"

@@ -66,7 +66,7 @@ insert_submodule = (submodule, module) ->
 
 submodules = {"map", "units", "sides", "pathfinder", "interface", "variables"}
 for submodule_name in *submodules
-    submodule = require"#{...}.#{submodule_name}"
+    submodule = require"api.#{submodule_name}"
     insert_submodule(submodule, wesnoth)
 
 helper  = require"#{...}.helper"

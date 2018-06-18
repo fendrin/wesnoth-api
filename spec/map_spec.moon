@@ -3,7 +3,7 @@
 -- SPDX-License-Identifier: GPL-2.0+
 
 
-map = require "map"
+map = require"api.map"
 
 map_string = [[
 Gg1 Gg1 Mh1 MH1 Hf1 Ww1 Ws1 Ww1

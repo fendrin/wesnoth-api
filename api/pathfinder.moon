@@ -1,5 +1,5 @@
-dir = (...)\match"(.-)[^%.]+$"
-pathfind = require"#{dir}pathfind"
+-- dir = (...)\match"(.-)[^%.]+$"
+pathfind = require"pathfind"
 
 ----
 -- This page describes the LuaWSL functions and helpers for finding paths.

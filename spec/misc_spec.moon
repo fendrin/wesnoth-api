@@ -3,7 +3,7 @@
 -- SPDX-License-Identifier: GPL-2.0+
 
 
-misc = require "misc"
+misc = require "api.misc"
 import try from misc
 
 

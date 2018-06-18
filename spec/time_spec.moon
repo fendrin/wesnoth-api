@@ -4,7 +4,7 @@
 
 require "moonscript"
 
-time = require("time")
+time = require"api.time"
 
 DAWN =
     id: "dawn"

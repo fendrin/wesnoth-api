@@ -5,7 +5,7 @@
 describe = describe
 it = it
 
-sides = require "sides"
+sides = require"api.sides"
 
 describe "sides", ->
 
