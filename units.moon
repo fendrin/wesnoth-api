@@ -6,7 +6,7 @@ import type from require "moon"
 moon = require"moon"
 
 -- internal dependencies
-Loc = require "shared.Location"
+Loc = require "Location"
 -- Unit = require "server.wesnoth.Unit"
 -- import board from require "server.wesnoth.map"
 -- import current,

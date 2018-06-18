@@ -2,18 +2,23 @@
 -- Copyright (C) 2018 by Fabian Mueller <fendrin@gmx.de>
 -- SPDX-License-Identifier: GPL-2.0+
 
+package.moonpath ..= ";./?/init.moon"
+describe = describe
+it = it
 
 UnitMap = require "unit_map"
 Unit = require "Unit"
 
 describe "UnitMap", ->
 
-    import unit_types from require "units"
+    -- import unit_types from require "units"
 
-    unit_types["Elvish Fighter"] =
-        id: "Elvish Fighter"
-        hitpoints: 24
-        experience: 5
+    unit_types =
+        ["Elvish Fighter"]:
+            id: "Elvish Fighter"
+            moves: 10
+            hitpoints: 24
+            experience: 5
 
     fighter =
         type: "Elvish Fighter"
@@ -33,18 +38,18 @@ describe "UnitMap", ->
             iter = unitMap\iter!
             assert(iter)
             assert (iter! == nil)
-            for none in iter
+            for _ in iter
                 assert(false)
 
-        it "over 5 units", ->
-            unitMap = UnitMap(10, 10)
-            units = {}
-            for i = 1, 5
-                units[i] = Unit(unitMap, fighter)
-            for i, unit in ipairs units
-                unitMap\place_unit(unit,i,i)
-            iter = unitMap\iter!
-            i = 0
-            for unit in iter
-                i += 1
-                assert(unit == units[i])
+        -- it "over 5 units", ->
+        --     unitMap = UnitMap(10, 10)
+        --     units = {}
+        --     for i = 1, 5
+        --         units[i] = Unit(unitMap, unit_types, {}, {}, fighter)
+        --     for i, unit in ipairs units
+        --         unitMap\place_unit(unit,i,i)
+        --     iter = unitMap\iter!
+        --     i = 0
+        --     for unit in iter
+        --         i += 1
+        --         assert(unit == units[i])

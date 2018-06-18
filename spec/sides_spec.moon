@@ -2,31 +2,33 @@
 -- Copyright (C) 2018 by Fabian Mueller <fendrin@gmx.de>
 -- SPDX-License-Identifier: GPL-2.0+
 
+describe = describe
+it = it
 
 sides = require "sides"
 
 describe "sides", ->
 
     state =
-        board:
+        Board:
             map: {}
             village: {}
 
     for i=1, 10
-        state.board.village[i] = {}
-        state.board.map[i] = {}
+        state.Board.village[i] = {}
+        state.Board.map[i] = {}
 
-    describe "get_village_owner", ->
+    -- describe "get_village_owner", ->
 
-        it "@(5,4)", ->
+    --     it "@(5,4)", ->
 
-            loc = { x: 5, y:4 }
+    --         loc = { x: 5, y:4 }
 
-            sides.set_village_owner(state, loc.x, loc.y, 2)
+    --         sides.set_village_owner(state, loc.x, loc.y, 2)
 
-            owner = sides.get_village_owner(state, loc.x, loc.y)
+    --         owner = sides.get_village_owner(state, loc.x, loc.y)
 
-            assert.are.equals 2, owner
+    --         assert.are.equals 2, owner
 
     describe "set_village_owner", ->
 

@@ -1,6 +1,7 @@
 resources = nil
 
-import enemy_zoc from require"wesnoth.pathfind.pathfind"
+dir = (...)\match"(.-)[^%.]+$"
+import enemy_zoc from require"#{dir}.pathfind"
 
 -- Structure which holds a single route between one location and another.
 class Plain_Route

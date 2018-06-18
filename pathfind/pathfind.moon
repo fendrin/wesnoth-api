@@ -23,8 +23,8 @@ movetype = {
 }
 
 
-Location     = require"shared.Location"
-Location_Set = require"shared.Location_Set"
+Location     = require"Location"
+Location_Set = require"Location_Set"
 
 resources = {
     gameboard: {}

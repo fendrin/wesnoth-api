@@ -36,6 +36,7 @@ log = (require"log")"actions"
 --     wsl_actions.print(cfg)
 -- wsl_actions = {}
 
+
 ----
 -- Fires a WSL action.
 -- @function wesmere.fire
@@ -44,9 +45,9 @@ log = (require"log")"actions"
 -- @usage wesmere.fire("message", { speaker: "narrator", message: _ "Hello World!" })
 -- @return the return value of the wsl action function
 fire = (wsl_action_name, wsl_action_table) ->
-    if action = wsl_actions[wsl_action_name]
-        return wsl_actions[wsl_action_name](wsl_action_table)
-    else error("WSLAction '#{wsl_action_name}' not known")
+    -- if action = wsl_actions[wsl_action_name]
+    --     return wsl_actions[wsl_action_name](wsl_action_table)
+    -- else error("WSLAction '#{wsl_action_name}' not known")
 
 ----
 -- This is an associative table like wesmere.wsl_actions. You can use it to define new conditional wsl tags that will be recognized in WSL when using [if], [show_if], [while], etc., or more generally when wesmere.eval_conditional is run.

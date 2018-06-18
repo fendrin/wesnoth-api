@@ -17,7 +17,6 @@ bitwise = require"bit"
 Location = require"Location"
 -- Location_Set = require"Location_Set"
 
-import Plain_Route from require"wesnoth.pathfind.route"
 
 log = (require'log')"AStarSearch"
 DBG_PF = log.debug
@@ -26,6 +25,7 @@ LOG_PF = log.info
 
 dir = (...)\match"(.-)[^%.]+$"
 Heap = require"#{dir}.binary_heap"
+import Plain_Route from require"#{dir}.route"
 
 ----
 -- @return double

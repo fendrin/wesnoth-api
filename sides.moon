@@ -4,8 +4,8 @@ dir = (...)\match"(.-)[^%.]+$"
 
 log = (require'log')"sides"
 
-Set      = require"shared.Set"
-Location = require"shared.Location"
+Set      = require"Set"
+Location = require"Location"
 
 -- import wml_error from require"helper"
 helper = require"#{dir}.helper"
@@ -61,26 +61,27 @@ set_village_owner = (x, y, side=0, fire_events=false) =>
 	new_side = side
 
 	loc = Location(x,y)
-	return false unless @GameBoard.is_village(@GameBoard.map[loc.x][loc.y])
 
-    old_side = @GameBoard.village[x][y]
+    -- return false unless @Board.is_village(@Board.map[loc.x][loc.y])
 
-    if (new_side == old_side or new_side < 0 or
-        new_side > #@GameBoard.sides or
-        @GameBoard.team_is_defeated(@GameBoard.sides[new_side]))
-            return false
+    -- old_side = @Board.village[x][y]
 
-    if old_side
-        @sides[old_side].lose_village(loc)
+    -- if (new_side == old_side or new_side < 0 or
+    --     new_side > #@Board.sides or
+    --     @Board.team_is_defeated(@Board.sides[new_side]))
+    --         return false
+
+    -- if old_side
+    --     @sides[old_side].lose_village(loc)
+
+    -- -- if new_side
+    -- --     @sides[new_side].get_village(loc, old_side, (fire_events ? &gamedata() : NULL) )
 
     -- if new_side
-    --     @sides[new_side].get_village(loc, old_side, (fire_events ? &gamedata() : NULL) )
+    --     @Board.village[x][y] = new_side
+    -- else @Board.village[x][y] = false
 
-    if new_side
-        @GameBoard.village[x][y] = new_side
-    else @GameBoard.village[x][y] = false
-
-    return old_side
+    -- return old_side
 
 
 ----
@@ -329,7 +330,7 @@ get_starting_location = (side) =>
 get_village_owner = (x, y) =>
     assert(@)
     -- @todo rename to get_tile_owner to make it less wesnoth specific
-    return @GameBoard.villages[x][y]
+    return @Board.owner[x][y]
 
 
 ----

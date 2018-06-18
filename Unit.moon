@@ -4,8 +4,8 @@
 
 -- moon = require "moon"
 Set = require "pl.Set"
-Loc = require "shared.Location"
-HasGetters = require "shared.HasGetters"
+Loc = require "Location"
+HasGetters = require "HasGetters"
 dir = (...)\match"(.-)[^%.]+$"
 -- UnitMap = require "#{dir}.unit_map"
 

@@ -3,7 +3,7 @@
 -- SPDX-License-Identifier: GPL-2.0+
 
 -- local ERR_CF
-t_translation = require"wesnoth.terrain.translation"
+t_translation = require"terrain.translation"
 
 ----
 -- The terrain-based data.

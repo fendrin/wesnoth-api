@@ -1,7 +1,7 @@
 dir = (...)\match"(.-)[^%.]+$"
 moon = require "moon"
 
-Loc = require "shared.Location"
+Loc = require "Location"
 -- Unit = require "server.wesnoth.Unit"
 -- HasGetters = require "HasGetters"
 

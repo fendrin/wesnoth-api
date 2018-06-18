@@ -1,4 +1,4 @@
-Location = require"shared.Location"
+Location = require"Location"
 dir = (...)\match"(.-)[^%.]+$"
 find_routes = require"#{dir}find_routes"
 Dest_Vect   = require"#{dir}Dest_Vect"

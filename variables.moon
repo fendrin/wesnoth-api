@@ -19,7 +19,7 @@ get_variable = (var_name) =>
     set_value = (val) ->
         value = val
     @current.event_context._set_value = set_value
-    fun, err = load("_set_value(#{var_name})", "get_variable:", "t", @current.event_context)
+    fun, err = loadstring("_set_value(#{var_name})", "get_variable:", "t", @current.event_context)
     unless fun
         error(err)
     else fun!
@@ -37,7 +37,8 @@ set_variable = (var_name, value) =>
     @current.event_context._value = value
     return unless var_name
     assert(var_name, "wesmere.set_variable: Missing 'var_name' argument.")
-    fun, err = load("#{var_name} = _value", "set_variable:", "t", @current.event_context)
+    fun, err = loadstring("#{var_name} = _value", "set_variable:",
+        "t", @current.event_context)
     unless fun
         error(err)
     else fun!

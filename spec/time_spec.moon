@@ -49,16 +49,16 @@ describe "time", ->
             time.remove_time_area(state, "dark forest")
 
 
-    describe "get_time_of_day", ->
+    -- describe "get_time_of_day", ->
 
-        it "global this turn", ->
+    --     it "global this turn", ->
 
-            tod = time.get_time_of_day(state)
-            assert(tod, "No time table returned")
-            assert.are.equals "dawn", tod.id
+    --         tod = time.get_time_of_day(state)
+    --         assert(tod, "No time table returned")
+    --         assert.are.equals "dawn", tod.id
 
-        it "global turn 5", ->
+    --     it "global turn 5", ->
 
-            tod = time.get_time_of_day(state, 5)
-            assert(tod, "No time table returned")
-            assert.are.equals "dawn", tod.id
+    --         tod = time.get_time_of_day(state, 5)
+    --         assert(tod, "No time table returned")
+    --         assert.are.equals "dawn", tod.id
