@@ -150,7 +150,7 @@ fire_event = (event_name, x1, y1, x2, y2, first_weapon, second_weapon) =>
         -- @todo filter_second_attack
 
         -- @todo delayed_variable_substitution ?
-        log.trace("Executing: #{handler.name}")
+        log.debug("Executing: #{handler.name}")
 
         if handler.first_time_only
             handler.remove = true
