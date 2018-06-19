@@ -5,6 +5,9 @@
 moon = require "moon"
 Location_Set = require "utils.Location_Set"
 
+describe = describe
+it = it
+
 describe "Location_Set", ->
 
     some_set = Location_Set!
