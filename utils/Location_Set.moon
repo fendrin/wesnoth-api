@@ -76,11 +76,10 @@ class Location_Set
     -- @usage some_set\insert(17, 42)
     -- assert(some_set\size! == 1)
     size: =>
-        -- sz = 0
-        -- for p,v in pairs(@values)
-        --     sz += 1
-        -- return sz
-        return #@values
+        sz = 0
+        for _,_ in pairs(@values)
+            sz += 1
+        return sz
 
     ----
     -- Empties the content of the set.
