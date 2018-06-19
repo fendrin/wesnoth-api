@@ -58,7 +58,8 @@ describe "#Location", ->
 
         it "Location({})", ->
             loc = Location({})
-            assert.are.equal(nil, loc)
+            assert.are.equal(nil, loc.x)
+            assert.are.equal(nil, loc.y)
 
         it "Location({loc:{5,19}})", ->
             loc = Location({loc:{5,19}})
