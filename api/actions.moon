@@ -6,14 +6,14 @@
 
 dir = (...)\match"(.-)[^%.]+$"
 
-try = require"try"
+try = require"utils.try"
 
 -- import try, wsl_error from require "#{dir}.misc"
 import get_unit from require "#{dir}.units"
 
 import setfenv from require "pl.utils"
 
-log = (require"log")"actions"
+log = (require"utils.log")"actions"
 -- log =
 --     error: error
 --     trace: -> --print

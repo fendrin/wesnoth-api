@@ -5,9 +5,9 @@
 describe = describe
 it = it
 
-Unit = require "Unit"
-UnitMap = require "unit_map"
-Loc = require "Location"
+Unit = require "utils.Unit"
+UnitMap = require "utils.unit_map"
+Loc = require "utils.Location"
 
 -- unit_types = require("units").unit_types
 

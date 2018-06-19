@@ -2,7 +2,7 @@
 love = love
 get  = require"filesystem"
 
-log = (require"log")"controller"
+log = (require"utils.log")"controller"
 
 dir = (...)\match"(.-)[^%.]+$"
 import show_story from require"#{dir}.interface"
@@ -12,10 +12,10 @@ import wrapInArray from require"#{dir}.misc"
 import put_unit    from require"#{dir}.units"
 import get_starting_location from require"#{dir}.sides"
 
-UnitMap = require"#{dir}.unit_map"
+UnitMap = require"utils.unit_map"
 
 include = require"shared.include"
-table_merge = require"#{dir}.table_merge"
+table_merge = require"utils.table_merge"
 
 Terrain_Type_Data = require"wesnoth.terrain.Terrain_Type_Data"
 

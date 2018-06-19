@@ -1,9 +1,9 @@
-Location = require"Location"
-Location_Set = require"Location_Set"
+Location = require"utils.Location"
+Location_Set = require"utils.Location_Set"
 -- VALIDATE = -> "whatever"
 -- moon = require"moon"
 
-log = (require"log")"FindRoutes"
+log = (require"utils.log")"FindRoutes"
 
 -- import enemy_zoc from require"server.wesnoth.pathfind.pathfind"
 dir = (...)\match"(.-)[^%.]+$"

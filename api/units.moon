@@ -6,7 +6,7 @@ import type from require "moon"
 moon = require"moon"
 
 -- internal dependencies
-Loc = require "Location"
+Loc = require "utils/Location"
 -- Unit = require "server.wesnoth.Unit"
 -- import board from require "server.wesnoth.map"
 -- import current,
@@ -221,7 +221,7 @@ copy_unit = (unit) ->
 extract_unit = (unit) =>
     assert(unit, "Missing argument 'unit'")
     unit_type = type(unit)
-    Unit = require "#{dir}.Unit"
+    Unit = require "utils.Unit"
     assert(unit_type == Unit, "wesmere.extract_unit: argument is not of type 'Unit' but #{unit_type}")
     @units.remove_unit(unit.id)
     --unit\extract!
@@ -404,7 +404,7 @@ transform_unit = (unit, to_type) ->
 put_unit = (unit, x, y) =>
     -- assert @, "wesmere.put_unit: Missing 'self' argument"
     -- assert unit, "wesmere.put_unit: Missing 'unit argument'"
-    Unit = require"#{dir}.Unit"
+    Unit = require"utils.Unit"
     local loc
     if x
         loc = Loc(x,y)

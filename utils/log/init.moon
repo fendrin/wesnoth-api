@@ -1,5 +1,5 @@
 
-color = require"log.ansicolors"
+color = require"utils.log.ansicolors"
 log_color =
     error: color.red
     warn:  color.yellow

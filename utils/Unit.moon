@@ -4,8 +4,8 @@
 
 -- moon = require "moon"
 Set = require "pl.Set"
-Loc = require "Location"
-HasGetters = require "HasGetters"
+Loc = require "utils.Location"
+HasGetters = require "utils.HasGetters"
 dir = (...)\match"(.-)[^%.]+$"
 -- UnitMap = require "#{dir}.unit_map"
 
@@ -14,7 +14,7 @@ import wrapInArray from require "api.misc"
 -- import wsl_error        from require "server.wesnoth.actions"
 -- import board            from require "server.wesnoth.map"
 -- unit_types = Data.Unit_Type
-Movetype = require"#{dir}Movetype"
+Movetype = require"Movetype"
 
 
 ----

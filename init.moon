@@ -69,11 +69,11 @@ for submodule_name in *submodules
     submodule = require"api.#{submodule_name}"
     insert_submodule(submodule, wesnoth)
 
-helper  = require"#{...}.helper"
+helper  = require"api.helper"
 helper_ = {}
 insert_submodule(helper, helper_)
 
-controller  = require"#{...}.controller"
+controller  = require"api.controller"
 controller_ = {}
 insert_submodule(controller, controller_)
 

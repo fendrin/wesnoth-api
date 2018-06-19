@@ -5,7 +5,7 @@ pathfind = require"pathfind"
 -- This page describes the LuaWSL functions and helpers for finding paths.
 -- @submodule wesmere
 
-Loc = require "Location"
+Loc = require "utils.Location"
 
 ---
 --

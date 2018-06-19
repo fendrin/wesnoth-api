@@ -3,7 +3,7 @@
 -- SPDX-License-Identifier: GPL-2.0+
 
 moon = require "moon"
-Location_Set = require "Location_Set"
+Location_Set = require "utils.Location_Set"
 
 describe "Location_Set", ->
 

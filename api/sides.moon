@@ -2,10 +2,10 @@
 -- @submodule wesmere
 dir = (...)\match"(.-)[^%.]+$"
 
-log = (require'log')"sides"
+log = (require'utils.log')"sides"
 
-Set      = require"Set"
-Location = require"Location"
+Set      = require"utils.Set"
+Location = require"utils.Location"
 
 -- import wml_error from require"helper"
 helper = require"#{dir}.helper"

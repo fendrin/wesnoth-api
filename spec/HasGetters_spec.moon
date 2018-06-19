@@ -3,7 +3,7 @@
 -- SPDX-License-Identifier: GPL-2.0+
 
 
-HasGetters = require "HasGetters"
+HasGetters = require "utils.HasGetters"
 
 
 describe "HasGetters", ->

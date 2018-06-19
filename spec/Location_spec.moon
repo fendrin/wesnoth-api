@@ -3,7 +3,7 @@
 -- SPDX-License-Identifier: GPL-2.0+
 
 require "moonscript"
-Location = require "Location"
+Location = require "utils/Location"
 describe = describe
 it = it
 

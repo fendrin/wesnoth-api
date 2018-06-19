@@ -3,7 +3,7 @@
 -- @classmod Location
 
 moon  = require "moon.init"
-HasGetters = require "HasGetters"
+HasGetters = require "utils.HasGetters"
 
 bitwise = require"bit"
 

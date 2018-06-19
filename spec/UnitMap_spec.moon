@@ -6,8 +6,8 @@ package.moonpath ..= ";./?/init.moon"
 describe = describe
 it = it
 
-UnitMap = require "unit_map"
-Unit = require "Unit"
+UnitMap = require "utils.unit_map"
+Unit = require "utils.Unit"
 
 describe "UnitMap", ->
 

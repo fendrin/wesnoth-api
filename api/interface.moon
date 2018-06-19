@@ -1,4 +1,4 @@
-log = (require"log")"interface"
+log = (require"utils/log")"interface"
 
 ----
 -- This page describes the LuaWSL functions and helpers for interfacing with the user.

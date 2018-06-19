@@ -14,11 +14,11 @@
 
 
 bitwise = require"bit"
-Location = require"Location"
+Location = require"utils.Location"
 -- Location_Set = require"Location_Set"
 
 
-log = (require'log')"AStarSearch"
+log = (require'utils.log')"AStarSearch"
 DBG_PF = log.debug
 LOG_PF = log.info
 -- ERR_PF = log.error
