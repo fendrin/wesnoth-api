@@ -11,7 +11,7 @@
 --
 -- See the COPYING file for more details.
 
-Set = require'shared.Set'
+Set = require'utils.Set'
 t_translation = require"wesnoth.terrain.translation"
 
 
