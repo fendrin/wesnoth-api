@@ -1,5 +1,10 @@
 ----
--- @submodule wesmere
+-- Copyright (C) 2018 by Fabian Mueller <fendrin@gmx.de>
+-- SPDX-License-Identifier: GPL-2.0+
+
+---
+-- @submodule wesnoth
+
 dir = (...)\match"(.-)[^%.]+$"
 
 log = (require'utils.log')"sides"
@@ -17,10 +22,10 @@ helper = require"#{dir}.helper"
 -- This is not a function but a table indexed by side numbers.
 -- Its elements are proxy tables with these fields:
 -- The metatable of these proxy tables appears as "side".
--- @usage side = wesmere.sides[1]
+-- @usage side = wesnoth.sides[1]
 -- side.gold += 50
--- wesmere.message(string.format("%d sides", #wesmere.sides))
--- @table wesmere.sides
+-- wesnoth.message(string.format("%d sides", #wesnoth.sides))
+-- @table wesnoth.sides
 -- @number side the side number
 -- @number gold
 -- @number village_gold
@@ -46,15 +51,16 @@ helper = require"#{dir}.helper"
 -- @tab __cfg WSL table (dump)
 
 
-----
--- Gives ownership of the village at the given location to the given side (or remove ownership if none). Ownership is also removed if nil or 0 is passed for the third parameter, but no capture events are fired in this case.
--- @function wesmere.set_village_owner
+--- Gives ownership of the village at the given location to the given side (or remove ownership if none).
+-- Ownership is also removed if nil or 0 is passed for the third parameter,
+-- but no capture events are fired in this case.
+-- @function wesnoth.set_village_owner
 -- @number x
 -- @number y
 -- @number[opt=0] side
--- @bool[opt=false] fire_events An optional 4th parameter (boolean true|false, default: false) can be passed determining whether to fire any capture events.
+-- @bool[opt=false] fire_events An optional 4th parameter can be passed determining whether to fire any capture events.
 -- @treturn number|bool side number of the former owner
--- @usage wesmere.set_village_owner(12, 15, 1)
+-- @usage wesnoth.set_village_owner(12, 15, 1)
 set_village_owner = (x, y, side=0, fire_events=false) =>
     assert(@)
 
@@ -84,20 +90,22 @@ set_village_owner = (x, y, side=0, fire_events=false) =>
     -- return old_side
 
 
-----
--- Returns true if sideA is enemy of sideB, false otherwise.
--- @function wesmere.is_enemy
+--- Returns true if sideA is enemy of sideB, false otherwise.
 -- @number sideA
 -- @number sideB
 -- @treturn bool
--- @usage enemy_flag = wesmere.is_enemy(1, 3)
+-- @usage enemy_flag = wesnoth.is_enemy(1, 3)
 is_enemy = (sideA, sideB) =>
 
     with helper
-        .wml_error("wesmere.is_enemy: sideA not a number") unless sideA or type(sideA) != "number"
-        .wml_error("wesmere.is_enemy: sideB not a number") unless sideB or type(sideB) != "number"
-        .wml_error("wesmere.is_enemy: sideA not valid") if sideA < 1 or sideA > #@sides
-        .wml_error("wesmere.is_enemy: sideB not valid") if sideB < 1 or sideB > #@sides
+        unless sideA or type(sideA) != "number"
+            .wml_error("wesnoth.is_enemy: sideA not a number")
+        unless sideB or type(sideB) != "number"
+            .wml_error("wesnoth.is_enemy: sideB not a number")
+        if sideA < 1 or sideA > #@sides
+            .wml_error("wesnoth.is_enemy: sideA not valid")
+        if sideB < 1 or sideB > #@sides
+            .wml_error("wesnoth.is_enemy: sideB not valid")
 
     -- We're not enemy of ourselves
     return false if sideA == sideB
@@ -106,15 +114,16 @@ is_enemy = (sideA, sideB) =>
     -- We're friendly with any side we share a team with
     return (teamsA * teamsB)\isempty!
 
+
 local match_side
 ----
 -- Returns a table array containing tables for these sides matching the passed StandardSideFilter.
--- @function wesmere.get_sides
+-- @function wesnoth.get_sides
 -- @tab filter StandardSideFilter
 -- @treturn {Side,...} Array containing the matching sides.
 -- @usage
 -- -- set gold to 0 for all sides with a leader
--- sides = wesmere.get_sides
+-- sides = wesnoth.get_sides
 --     has_unit:
 --         can_recruit: true
 -- for side in *sides
@@ -136,10 +145,10 @@ get_sides = (filter) =>
 
 ----
 -- Matches a side against a given StandardSideFilter.
--- @function wesmere.match_side
+-- @function wesnoth.match_side
 -- @number side
 -- @tab filter
--- @usage wesmere.message(tostring(wesmere.match_side(1, { has_unit: { type: "Troll" } } )))
+-- @usage wesnoth.message(tostring(wesnoth.match_side(1, { has_unit: { type: "Troll" } } )))
 match_side = (side, filter) =>
     assert(side)
     assert(filter, "match_side: Missing 'filter' argument.")
@@ -232,7 +241,7 @@ match_side = (side, filter) =>
         enemies = get_sides(@, enemy_of)
         return false if #sides == 0
         for enemy in enemies
-            return false if wesmere.is_enemy(@, side, enemy)
+            return false if wesnoth.is_enemy(@, side, enemy)
 
     -- const vconfig& allied_with = cfg_.child("allied_with");
     -- if(!allied_with.null()) {
@@ -244,7 +253,7 @@ match_side = (side, filter) =>
     --         if((fc_->get_disp_context().teams())[side - 1].is_enemy(t.side()))
     --             return false;
     if allied_filter = filter.allied_with
-        allies = wesmere.get_sides(allied_filter)
+        allies = wesnoth.get_sides(allied_filter)
         return false if #allies == 0
         for ally in allies
             return false if ally.is_enemy(side.side)
@@ -261,10 +270,10 @@ match_side = (side, filter) =>
     --             break;
     --     if (!found) return false;
     if enemy_filter = filter.has_enemy
-        enemies = wesmere.get_sides(enemy_filter)
+        enemies = wesnoth.get_sides(enemy_filter)
         found = false
         for enemy in *enemies
-            if wesmere.is_enemy(side, enemy)
+            if wesnoth.is_enemy(side, enemy)
                 found = true
                 break
         return false unless found
@@ -311,9 +320,9 @@ match_side = (side, filter) =>
 
 ----
 -- Returns the starting location of the given side.
--- @function wesmere.get_starting_location
--- @usage loc = wesmere.get_starting_location(1)
--- wesmere.message "side 1 starts at (#{loc[1]}, #{loc[2]})"
+-- @function wesnoth.get_starting_location
+-- @usage loc = wesnoth.get_starting_location(1)
+-- wesnoth.message "side 1 starts at (#{loc[1]}, #{loc[2]})"
 get_starting_location = (side) =>
     -- return @sides[side].starting_location
     log.debug"get_starting_location for #{side}"
@@ -322,11 +331,11 @@ get_starting_location = (side) =>
 
 ----
 -- Stub text
--- @function wesmere.get_village_owner
+-- @function wesnoth.get_village_owner
 -- @number x
 -- @number y
 -- @treturn number the side that owns the village at the given location.
--- @usage owned_by_side_1 = wesmere.get_village_owner(12, 15) == 1
+-- @usage owned_by_side_1 = wesnoth.get_village_owner(12, 15) == 1
 get_village_owner = (x, y) =>
     assert(@)
     -- @todo rename to get_tile_owner to make it less wesnoth specific
@@ -334,39 +343,39 @@ get_village_owner = (x, y) =>
 
 
 ----
--- @function wesnoth.set_side_id
 -- @number side
 -- Changes the visual identification of a side.
 -- Pass an empty string if you only want to change one of these two attributes.
 -- (Version 1.13.7 and later only)
+-- @function wesnoth.set_side_id
 set_side_id = (side, color, flag) =>
 
 
 ----
 -- Shrouds the specified hexes.
--- @function wesnoth.place_shroud
 -- (Version 1.13.7 and later only)
 -- You can pass a shroud_data string (which will be merged with existing shroud), a list of specific locations (where each location is a two-element list of x and y coordinates), or the special string "all" to shroud all hexes.
+-- @function wesnoth.place_shroud
 place_shroud = (side, shroud) =>
 
 
 ----
--- @function wesnoth.remove_shroud
 -- (Version 1.13.7 and later only)
 -- Unshrouds the specified hexes. Hexes are specified as with place_shroud, except that a shroud_data string will not work.
+-- @function wesnoth.remove_shroud
 remove_shroud = (side, shroud) =>
 
 
 ----
--- @function wesnoth.is_fogged
 -- (Version 1.13.7 and later only)
 -- Tests if the given location is under fog from the point of view of the given side.
+-- @function wesnoth.is_fogged
 is_fogged = (side, location) =>
 
 
 ----
--- @function wesnoth.is_shrouded
 -- (Version 1.13.7 and later only)
+-- @function wesnoth.is_shrouded
 is_shrouded = (side, location) =>
 
 

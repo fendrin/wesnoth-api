@@ -1,5 +1,9 @@
 ----
--- @submodule wesmere
+-- Copyright (C) 2018 by Fabian Mueller <fendrin@gmx.de>
+-- SPDX-License-Identifier: GPL-2.0+
+
+----
+-- @submodule wesnoth
 
 ----
 -- Shows a message dialog, of the type used by the message ActionWSL function. Unlike the message function, this is unsynced; if you need it synced, you must do it yourself.

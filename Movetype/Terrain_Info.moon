@@ -24,11 +24,13 @@ class Terrain_Info
 
     ----
     -- Constructor.
+    -- @param cfg
     -- @param[in] params    The parameters to use when calculating values.
     --                      This is stored as a reference, so it must be long-lived (typically a static variable).
+    -- @param terrain_types
     -- @param[in] fallback  Used as a backup in case we are asked for data we do not have (think vision costs falling back to movement costs).
     -- @param[in] cascade   A terrain_info that uses us as a fallback. (Needed to sync cache clearing.)
-    -- @note The fallback/cascade mechanism is a bit fragile and really should only be used by movetype.
+    -- @warning The fallback/cascade mechanism is a bit fragile and really should only be used by movetype.
     -- movetype::terrain_info::terrain_info(const parameters & params,
     --                                      const terrain_info * fallback,
     --                                      const terrain_info * cascade) :

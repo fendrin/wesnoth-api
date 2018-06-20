@@ -1,8 +1,15 @@
+----
+-- Copyright (C) 2018 by Fabian Mueller <fendrin@gmx.de>
+-- SPDX-License-Identifier: GPL-2.0+
+
+---
+-- @submodule wesnoth
+
+-- This page describes the LuaWSL functions and helpers for interfacing with the user.
+
+
 log = (require"utils/log")"interface"
 
-----
--- This page describes the LuaWSL functions and helpers for interfacing with the user.
--- @submodule wesmere
 
 -- LuaWSL:Display
 

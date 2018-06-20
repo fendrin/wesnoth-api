@@ -1,9 +1,14 @@
--- dir = (...)\match"(.-)[^%.]+$"
-pathfind = require"pathfind"
+----
+-- Copyright (C) 2018 by Fabian Mueller <fendrin@gmx.de>
+-- SPDX-License-Identifier: GPL-2.0+
 
 ----
 -- This page describes the LuaWSL functions and helpers for finding paths.
--- @submodule wesmere
+-- @submodule wesnoth
+
+-- dir = (...)\match"(.-)[^%.]+$"
+pathfind = require"pathfind"
+
 
 Loc = require "utils.Location"
 

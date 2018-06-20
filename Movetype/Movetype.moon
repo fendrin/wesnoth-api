@@ -2,13 +2,10 @@
 -- Copyright (C) 2014 - 2018 by David White <dave@whitevine.net>
 -- SPDX-License-Identifier: GPL-2.0+
 
+-- Handle movement types.
+
 Set = require"utils.Set"
 moon = require"moon"
-
-
-----
--- @file
--- Handle movement types.
 
 dir = (...)\match"(.-)[^%.]+$"
 Terrain_Costs = require"#{dir}Terrain_Costs"
@@ -157,7 +154,8 @@ class Movetype
 
     ----
     -- Merges the given config over the existing data.
-    -- @param overwrite If @a overwrite is false, the new values will be added to the old. default is true
+    -- @param new_cfg
+    -- @param overwrite If overwrite is false, the new values will be added to the old. default is true
     merge: (new_cfg, overwrite=true) =>
 
         for child in *new_cfg.movement_costs
