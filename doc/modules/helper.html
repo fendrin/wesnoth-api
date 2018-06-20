@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Moonscript/Lua API Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>wesnoth-love</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/wesnoth.html">wesnoth</a></li>
+  <li><strong>helper</strong></li>
+  <li><a href="../modules/items.html">items</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+  <li><a href="../topics/LICENSE.html">LICENSE</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>helper</code></h1>
+<p>
+
+</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" ><a href="#wml_error">wml_error ()</a></td>
+	<td class="summary">Interrupts the current execution and displays a chat message that looks like a WML error.</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#all_sides">all_sides ()</a></td>
+	<td class="summary">Returns an iterator over sides that can be used in a for-in loop.</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#get_user_choice">get_user_choice ()</a></td>
+	<td class="summary">Displays a WML message box querying a choice from the user.</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#distance_between">distance_between ()</a></td>
+	<td class="summary">Returns the distance between two tiles given by their coordinates.</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#adjacent_tiles">adjacent_tiles ()</a></td>
+	<td class="summary">If the third argument is true, tiles on the map border are also visited.</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#set_wml_tag_metatable">set_wml_tag_metatable ()</a></td>
+	<td class="summary">helper.set<em>wml</em>tag_metatable{}
+ Sets the metable of a table so that it can be used to create subtags with less brackets.</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#modify_unit">modify_unit ()</a></td>
+	<td class="summary">Modifies all the units satisfying the given filter (argument 1) with some WML attributes/objects (argument 2).</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#move_unit_fake">move_unit_fake (unit, destination)</a></td>
+	<td class="summary">helper.move<em>unit</em>fake
+ Fakes the move of a unit satisfying the given filter (argument 1) to the given position (argument 2).</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#move_unit">move_unit (path)</a></td>
+	<td class="summary">
+
+</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#rand">rand ()</a></td>
+	<td class="summary">(A shortcut to set<em>variable's rand= since math.rand is an OOS magnet and therefore disabled.) Pass a string like you would to set</em>variable's rand=.</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#round">round ()</a></td>
+	<td class="summary">Unlike other languages (Python, Perl, Javascript, ...), Lua does not include a round function.</td>
+	</tr>
+	<tr>
+	<td class="name" ><a href="#shuffle">shuffle ()</a></td>
+	<td class="summary">This function randomly sorts in place the elements of the table passed as argument, following the Fisher-Yates algorithm.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "wml_error"></a>
+    <strong>wml_error ()</strong>
+    </dt>
+    <dd>
+    Interrupts the current execution and displays a chat message that looks like a WML error.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">names = cfg.name <span class="keyword">or</span> helper.wml_error(<span class="string">"[clear_variable] missing required name= attribute."</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "all_sides"></a>
+    <strong>all_sides ()</strong>
+    </dt>
+    <dd>
+    Returns an iterator over sides that can be used in a for-in loop.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">for</span> side <span class="keyword">in</span> helper.all_sides() <span class="keyword">do</span> side.gold = <span class="number">200</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "get_user_choice"></a>
+    <strong>get_user_choice ()</strong>
+    </dt>
+    <dd>
+    Displays a WML message box querying a choice from the user.
+ Attributes and options are taken from given tables (see [message]).
+ The index of the selected option is returned.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">result = helper.get_user_choice({ speaker: <span class="string">"narrator"</span> }, { <span class="string">"Choice 1"</span>, <span class="string">"Choice 2"</span> })</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "distance_between"></a>
+    <strong>distance_between ()</strong>
+    </dt>
+    <dd>
+    Returns the distance between two tiles given by their coordinates.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">d = distance_between(x1, y1, x2, y2)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "adjacent_tiles"></a>
+    <strong>adjacent_tiles ()</strong>
+    </dt>
+    <dd>
+    If the third argument is true, tiles on the map border are also visited.
+ Returns an iterator on the (at most six) tiles around a given location that are on the map.
+ adjacent<em>tiles(x, y, [include</em>border])
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="comment">-- remove all the units next to the (a,b) tile
+</span><span class="keyword">for</span> x, y <span class="keyword">in</span> helper.adjacent_tiles(a, b)
+    wesnoth.put_unit(x, y)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "set_wml_tag_metatable"></a>
+    <strong>set_wml_tag_metatable ()</strong>
+    </dt>
+    <dd>
+    helper.set<em>wml</em>tag_metatable{}
+ Sets the metable of a table so that it can be used to create subtags with less brackets.  Returns the table. The fields of the table are simple wrappers around table constructors.</p>
+<pre><code> Select All
+</code></pre>
+<p> T = helper.set<em>wml</em>tag_metatable {}
+ W.event { name = "new turn", T.message { speaker = "narrator", message = "?" } }
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "modify_unit"></a>
+    <strong>modify_unit ()</strong>
+    </dt>
+    <dd>
+    Modifies all the units satisfying the given filter (argument 1) with some WML attributes/objects (argument 2).
+ This is a Lua implementation of the MODIFY_UNIT macro.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">helper.modify_unit({ id: <span class="string">"Delfador"</span> }, { moves: <span class="number">0</span> })
+ Note: This appears to be less powerful than the [modify_unit] tag <span class="keyword">and</span> may be removed at some point <span class="keyword">in</span> the future.</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "move_unit_fake"></a>
+    <strong>move_unit_fake (unit, destination)</strong>
+    </dt>
+    <dd>
+    helper.move<em>unit</em>fake
+ Fakes the move of a unit satisfying the given filter (argument 1) to the given position (argument 2).  This is a Lua implementation of the MOVE_UNIT macro.</p>
+<pre><code> Select All
+</code></pre>
+<p> helper.move<em>unit</em>fake({ id="Delfador" }, 14, 8)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">unit</span>
+
+
+
+        </li>
+        <li><span class="parameter">destination</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "move_unit"></a>
+    <strong>move_unit (path)</strong>
+    </dt>
+    <dd>
+
+
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">path</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rand"></a>
+    <strong>rand ()</strong>
+    </dt>
+    <dd>
+    (A shortcut to set<em>variable's rand= since math.rand is an OOS magnet and therefore disabled.) Pass a string like you would to set</em>variable's rand=.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">create a random unit at (<span class="number">1</span>, <span class="number">1</span>) on side=<span class="number">1</span> :
+ wesnoth.put_unit(<span class="number">1</span>, <span class="number">1</span>, { <span class="global">type</span>: helper.rand(<span class="string">"Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Scout"</span>) })</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "round"></a>
+    <strong>round ()</strong>
+    </dt>
+    <dd>
+    Unlike other languages (Python, Perl, Javascript, ...), Lua does not include a round function.  This helper function allows rounding numbers, following the "round half away from zero method", see Wikipedia [[1]]. Returns the number rounded to the nearest integer.
+ -- this number will be rounded up
+ helper.round(345.67) -- returns 346
+ -- this one will be rounded down
+ helper.round(543.21) -- returns 543
+ -- an integer stays integer
+ helper.round(123) -- returns 123
+ -- works also for negative numbers
+ helper.round(-369.84) -- returns -370
+ helper.round(-246.42) -- returns -246
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "shuffle"></a>
+    <strong>shuffle ()</strong>
+    </dt>
+    <dd>
+    This function randomly sorts in place the elements of the table passed as argument, following the Fisher-Yates algorithm.  It returns no value.
+ WARNING: this function uses Lua's math.random(), and so it is not MP-safe.
+ It is provided mainly for AI development, although it should work inside wesnoth.synchronize<em>choice() as well.
+ (Version 1.13.2 and later only) helper.shuffle(array, [random</em>function])</p>
+<pre><code> Select All
+</code></pre>
+<p> local locs = wesnoth.get_locations( { terrain="G*" } )
+ helper.shuffle( locs )
+ (Version 1.13.2 and later only) This function now uses the synced RNG by default and should not cause OOS anymore. It is also possible now to pass a different random generator as a second argument; a random generator is a function that takes two integers a and b and returns a random integer in the range [a,b]. For example, math.random can be passed to get the 1.12 behavior:
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> locs = wesnoth.get_locations( { terrain: <span class="string">"G*"</span> } )
+helper.shuffle( locs, <span class="global">math</span>.random )</pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-06-20 13:13:00 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
