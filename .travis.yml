@@ -18,6 +18,7 @@ install:
     - sudo apt-get install luarocks
     - sudo apt-get install lua-bitop
     - sudo apt-get install lua-ldoc
+    - sudo apt-get install lua-markdown
     # - sudo apt-get install lua-busted
     # - luarocks install https://luarocks.org/manifests/olivine-labs/busted-2.0.rc11-0.rockspec
     # - sudo luarocks install loadkit
