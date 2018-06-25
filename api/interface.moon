@@ -8,7 +8,7 @@
 -- This page describes the LuaWSL functions and helpers for interfacing with the user.
 
 
-log = (require"utils/log")"interface"
+log = (require"utils/log")"api/interface"
 
 
 -- LuaWSL:Display
@@ -278,7 +278,7 @@ get_displayed_unit = () ->
 
 -- (You don't have to format it like that, of course.)
 show_message_dialog = (attributes, options, text_input_attributes) =>
-    log.info"show_message_dialog"
+    log.debug"show_message_dialog called"
     love = love
     attributes.command_name = "message"
     client = love.thread.getChannel'client'
