@@ -68,13 +68,13 @@ unit_map = UnitMap(25,25)
 --                 unit = Unit(unit_map, cfg)
 --                 assert(not unit\matches({id: "notKalenz"}))
 
---             it "Kalenz, Rudolph, Adolf, Stalin", ->
+--             it "Kalenz, Rudolph, Bernd, Karl", ->
 --                 unit = Unit(unit_map, cfg)
---                 assert(unit\matches({id: {"Kalenz", "Rudolph", "Adolf", "Stalin"} }))
+--                 assert(unit\matches({id: {"Kalenz", "Rudolph", "Bernd", "Karl"} }))
 
---             it "notKalenz, Rudolph, Adolf, Stalin", ->
+--             it "notKalenz, Rudolph, Bernd, Karl", ->
 --                 unit = Unit(unit_map, cfg)
---                 assert(not unit\matches({id: {"notKalenz", "Rudolph", "Adolf", "Stalin"} }))
+--                 assert(not unit\matches({id: {"notKalenz", "Rudolph", "Bernd", "Karl"} }))
 
 --         describe "loc:", ->
 
