@@ -185,6 +185,9 @@ fire_event = (event_name, x1, y1, x2, y2, first_weapon, second_weapon) =>
         second_unit = get_unit(x2, y2)
 
     with event_context
+        .tostring = tostring
+        .assert   = assert
+
         .name = event_name
         .x1 = x1
         .y1 = y1
