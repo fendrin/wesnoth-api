@@ -36,16 +36,17 @@ get_variable = (var_name) =>
 -- @function wesmere.set_variable
 -- @usage wesmere.set_variable("my_unit.hitpoints", heros_hp + 10)
 set_variable = (var_name, value) =>
-    assert(@)
-    assert(@current.event_context)
-    @current.event_context._value = value
-    return unless var_name
-    assert(var_name, "wesmere.set_variable: Missing 'var_name' argument.")
-    fun, err = loadstring("#{var_name} = _value", "set_variable:",
-        "t", @current.event_context)
-    unless fun
-        error(err)
-    else fun!
+    assert(@, "no self")
+    assert(@current.event_context, "no event_context")
+    @current.event_context[var_name] = value
+    -- @current.event_context._value = value
+    -- return unless var_name
+    -- assert(var_name, "wesmere.set_variable: Missing 'var_name' argument.")
+    -- fun, err = loadstring("#{var_name} = _value", "set_variable:",
+    --     "t", @current.event_context)
+    -- unless fun
+    --     error(err)
+    -- else fun!
 
 
 ----
