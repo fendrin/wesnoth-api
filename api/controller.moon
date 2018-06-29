@@ -178,7 +178,9 @@ load_scenario = (id) =>
 
     ENV = {
         wesnoth: (require"wesnoth").wesnoth
-        -- print: (require"moon").p
+
+        :print
+        :assert
         :tostring
         _: (str) -> return str
     }
@@ -240,8 +242,10 @@ start_scenario = () =>
     -- before anything is on the screen
     fire_event(@, "prestart")
     fire_event(@, "start")
-        -- unless check_end_level!
-            -- new_turn!
+    --- @todo the check for end level is needed for story only scenarios.
+    -- unless check_end_level!
+    --     fire_event(@, "pre new turn")
+    fire_event(@, "pre new turn")
 
 
 ----
