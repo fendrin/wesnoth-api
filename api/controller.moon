@@ -28,11 +28,9 @@ table_merge = require"utils.table_merge"
 Terrain_Type_Data = require"wesnoth.terrain.Terrain_Type_Data"
 
 env = {}
-----
---
+---
 --
 read_data_tree = () =>
-    -- env = {}
     collectgarbage!
     mem_before = collectgarbage"count"
 
@@ -129,12 +127,9 @@ load_scenario = (id) =>
         @board.sides[i] = side
         unless side.gold
             @board.sides[i].gold = 0
-        -- print"setup side number #{side.side}"
         loc = get_starting_location(@, side.side)
 
         if side.type
-            -- print"inline unit of type: #{side.type}"
-
             put_unit(self, side, loc.x, loc.y)
         if unit = side.unit
             units = wrapInArray(unit)
@@ -145,36 +140,9 @@ load_scenario = (id) =>
     -- experience_modifier = @scenario.experience_modifier or 100
     -- turn_limit = @scenario.turns or -1
 
-    -- for side in *state.sides
-    --     -- unless side.no_leader
-    --     --     if side.type
-    --     --         local loc
-    --     --         try
-    --     --             do: -> loc = Location(side)
-    --     --             catch: (err) ->
-    --     --                 if loc = side.starting_location
-    --     --                     put_unit(state, side, loc.x, loc.y)
-    --     --             finally: ->
-    --     --                 if loc
-    --     --                     put_unit(state, side, loc.x, loc.y)
-    --     --                 elseif side.starting_location
-    --     --                     loc = side.starting_location
-    --     --                     put_unit(state, side, loc.x, loc.y)
-
     -- time of day
     if time = @scenario.time
         @board.time_of_day = time
-
-    -- setup_event_context!
-
-    -- merge the Scenario environment into the event_context
-    --- @todo maybe that can be solved better
-
-    --     if type(thing) == "function"
-    --         setfenv(thing, state.current.event_context)
-
-    --     state.current.event_context[key] = thing
-    --     --- @todo do validation here?
 
     ENV = {
         wesnoth: (require"wesnoth").wesnoth
@@ -203,38 +171,33 @@ load_scenario = (id) =>
         @current.event_context[key] = action.action
 
     -- setup the toplevel events
-    -- for key, events in pairs scenario
-    --     char = key\sub(1,1)
-    --     unless char\match("%u")
-    --         continue
-    --     events = wrapInArray(events)
-    --     for event in *events
-    --         switch type(event)
-    --             when "table"
-    --                 event.name = key
-    --                 wesnoth.add_event_handler(event)
-    --             when "function"
-    --                 wesnoth.add_event_handler{
-    --                     name: key
-    --                     command: event
-    --                 }
     log.info"adding event handlers"
-    -- (require'moon').p @scenario.event
+    for key, events in pairs @scenario
+        char = key\sub(1,1)
+        unless char\match("%u")
+            continue
+        events = wrapInArray(events)
+        for event in *events
+            switch type(event)
+                when "table"
+                    event.name = key
+                    add_event_handler(@, event)
+                when "function"
+                    add_event_handler(@, {
+                        name: key
+                        command: event
+                    })
     for event in *@scenario.event
         add_event_handler(@, event)
-        -- moon.p event
 
     log.info"scenario load complete"
 
 ----
---
---
+-- Start the scenario that has been loaded before or fail.
 start_scenario = () =>
-
-    -- require'moon'.p @scenario.story
+    assert(@scenario, "No scenario loaded.")
     if story = @scenario.story
-        -- assert(false)
-        default_title = "jojojo fabs"
+        default_title = @scenario.name
         show_story(@, story, default_title)
 
     -- should be fired every time a scenario got reloaded
@@ -250,7 +213,6 @@ start_scenario = () =>
 
 ----
 -- Reloads the data tree with the specified campaign's define set
---
 load_campaign = (id) =>
     @campaign = @Data.Campaign[id]
     env[@campaign.define] = true
@@ -260,19 +222,12 @@ load_campaign = (id) =>
     read_data_tree(@)
 
     load_scenario(@, @campaign.first_scenario)
-    -- set_next_scenario(campaign.first_scenario)
-
-
-gameBoard = () =>
-    return @board
-
-
 
 
 ----
---
---
--- start_campaign = =>
+-- @return the gameBoard
+gameBoard = () =>
+    return @board
 
 
 {
@@ -281,5 +236,4 @@ gameBoard = () =>
     :load_scenario
     :start_scenario
     :gameBoard
-    -- :start_campaign
 }
