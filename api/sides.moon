@@ -7,7 +7,7 @@
 
 dir = (...)\match"(.-)[^%.]+$"
 
-log = (require'utils.log')"sides"
+log = loging"sides"
 
 Set      = require"utils.Set"
 Location = require"utils.Location"

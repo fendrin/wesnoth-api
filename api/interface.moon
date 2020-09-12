@@ -8,7 +8,7 @@
 -- This page describes the LuaWSL functions and helpers for interfacing with the user.
 
 
-log = (require"utils/log")"api/interface"
+log = loging"api/interface"
 
 
 -- LuaWSL:Display

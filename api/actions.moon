@@ -20,7 +20,7 @@ import get_unit from require "#{dir}.units"
 
 import setfenv from require "pl.utils"
 
-log = (require"utils.log")"actions"
+log = loging"actions"
 -- log =
 --     error: error
 --     trace: -> --print

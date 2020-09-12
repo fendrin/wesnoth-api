@@ -3,7 +3,7 @@ Location_Set = require"utils.Location_Set"
 -- VALIDATE = -> "whatever"
 -- moon = require"moon"
 
-log = (require"utils.log")"FindRoutes"
+log = loging"findRoutes"
 
 -- import enemy_zoc from require"server.wesnoth.pathfind.pathfind"
 dir = (...)\match"(.-)[^%.]+$"

@@ -6,11 +6,10 @@
 -- @submodule wesnoth
 
 
--- @todo get rid of those two
+-- @todo get rid of love
 love = love
-get  = require"filesystem"
-
-log = (require"utils.log")"controller"
+loging = loging
+log    = loging"controller"
 
 dir = (...)\match"(.-)[^%.]+$"
 import show_story from require"#{dir}.interface"
@@ -22,7 +21,7 @@ import get_starting_location from require"#{dir}.sides"
 
 UnitMap = require"utils.unit_map"
 
-include = require"shared.include"
+include = require"utils.include"
 table_merge = require"utils.table_merge"
 
 Terrain_Type_Data = require"wesnoth.terrain.Terrain_Type_Data"
@@ -106,7 +105,7 @@ load_scenario = (id) =>
     -- Let's load the map.
     if map_file = @scenario.map
         -- @todo get rid of the love and get dependency
-        map_str = love.filesystem.read(get.data(map_file))
+        map_str = love.filesystem.read("data/"..map_file)
         load_map(@, map_str, @scenario.border_size)
     -- support inline maps.
     elseif map_data = @scenario.map_data
@@ -215,6 +214,8 @@ start_scenario = () =>
 -- Reloads the data tree with the specified campaign's define set
 load_campaign = (id) =>
     @campaign = @Data.Campaign[id]
+    log.info"loading campaign #{id}"
+    -- (require"moon").p(@Data.Campaign)
     env[@campaign.define] = true
     if extra_defines = @campaign.extra_defines
         for extra in extra_defines
