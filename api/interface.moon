@@ -278,6 +278,10 @@ get_displayed_unit = () ->
 
 -- (You don't have to format it like that, of course.)
 show_message_dialog = (attributes, options, text_input_attributes) =>
+
+    unless attributes.title
+        if speaker = attributes.speaker
+            attributes.title = speaker
     log.debug"show_message_dialog called"
     love = love
     attributes.command_name = "message"
@@ -287,6 +291,7 @@ show_message_dialog = (attributes, options, text_input_attributes) =>
 
 show_story = (story, default_title) =>
     assert(story)
+    -- todo get rid of love
     client = love.thread.getChannel'client'
     story.command_name = "story"
     client\push(story)
