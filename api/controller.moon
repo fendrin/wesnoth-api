@@ -76,7 +76,7 @@ read_data_tree = () =>
             @Data.Campaign[cfg.id] = cfg
         .Multiplayer_Side = ->
         .Binary_Path = (cfg) ->
-            table.insert(@Data.Binary_Path, cfg)
+            @Data.Binary_Path\insert(cfg.path)
         .INCLUDE = (path) -> include(path, env)
 
         ._ = (str) -> str

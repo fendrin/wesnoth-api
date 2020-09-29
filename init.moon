@@ -4,6 +4,8 @@
 
 ----
 -- @module wesnoth
+Set = require'utils.Set'
+
 
 local wesnoth
 
@@ -18,7 +20,7 @@ self =
         Terrain_Type: {}
 
         Game_Config: {}
-        Binary_Path: {}
+        Binary_Path: Set!
         Action: {}
         Tip:    {}
 
