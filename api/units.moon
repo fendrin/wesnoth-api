@@ -451,6 +451,42 @@ put_unit = (unit, x, y) =>
     else return false
 
 
+move_unit = (path) =>
+    src = path[1]
+    unit = get_units(src.x, src.y)
+
+    import get_terrain from require'wesnoth.api.map'
+    import fire_event  from require'wesnoth.api.actions'
+
+    local last_step
+    for step in *path
+
+        unless last_step
+            last_step = step
+            continue
+
+        -- todo check if steps are adjacent
+        terrain_code = get_terrain(step.x, step.y)
+        cost = unit\movement(terrain_code)
+
+        if unit.moves > cost
+            unit.moves -= cost
+
+            -- todo handle occupied hexes properly
+            fire_event('exit_hex',  last_step.x, last_step.y, step.x, step.y)
+            fire_event('enter_hex', step.x, step.y, last_step.x, last_step.y)
+
+            @board.units\clear_location(last_step.x, last_step.y)
+            @board.units\place_unit(unit, step.x, step.y)
+
+        else
+            -- TODO
+            -- log.warn'Illegal Move, not enough movement points left'
+            break
+
+
+
+
 {
     :advance_unit
     :get_units
@@ -476,4 +512,5 @@ put_unit = (unit, x, y) =>
     :simulate_combat
     :transform_unit
     -- :effects -- (Version 1.13.2 and later only)
+    :move_unit
 }
