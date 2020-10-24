@@ -297,6 +297,37 @@ show_story = (story, default_title) =>
     client\push(story)
 
 
+----
+-- todo
+-- w4l exclusive
+show_sides_objectives = (side) =>
+
+    send_command = require'send_command'
+    command_name = 'show_objectives'
+
+    if type(side) == 'number'
+        if s = @board.sides[side]
+            send_command{
+                :command_name
+                objectives: s.objectives
+            }
+            return true
+        else
+            return false
+
+    -- todo
+    -- sides = get_sides(@, side)
+    -- for each in *sides
+    --     -- assert(false)
+    --     send_command{
+    --         :command_name
+    --         objectives: each.objectives
+    --     }
+
+    return false
+
+
+
 {
     :message
     :clear_messages
@@ -311,21 +342,22 @@ show_story = (story, default_title) =>
     :play_sound
     :set_music
     :show_story
+    :show_sides_objectives
     :show_message_dialog -- (Version 1.13.2 and later only)
-    :show_popup_dialog -- (Version 1.13.2 and later only)
-    :show_dialog
-    :set_dialog_value
-    :get_dialog_value
-    :set_dialog_active
-    :set_dialog_callback
-    :set_dialog_markup
-    :set_dialog_focus -- (Version 1.13.2 and later only)
-    :set_dialog_visible -- (Version 1.13.2 and later only)
-    :set_dialog_canvas
-    :add_dialog_tree_node -- (Version 1.13.0 and later only)
-    :remove_dialog_item -- (Version 1.13.1 and later only)
+    -- :show_popup_dialog -- (Version 1.13.2 and later only)
+    -- :show_dialog
+    -- :set_dialog_value
+    -- :get_dialog_value
+    -- :set_dialog_active
+    -- :set_dialog_callback
+    -- :set_dialog_markup
+    -- :set_dialog_focus -- (Version 1.13.2 and later only)
+    -- :set_dialog_visible -- (Version 1.13.2 and later only)
+    -- :set_dialog_canvas
+    -- :add_dialog_tree_node -- (Version 1.13.0 and later only)
+    -- :remove_dialog_item -- (Version 1.13.1 and later only)
     :get_displayed_unit
-    :theme_items
+    -- :theme_items
     -- helper.get_user_choice
     :is_skipping_messages -- (Version 1.13.2 and later only)
     :skip_messages -- (Version 1.13.2 and later only)
