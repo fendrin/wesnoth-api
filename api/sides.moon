@@ -379,9 +379,61 @@ is_fogged = (side, location) =>
 is_shrouded = (side, location) =>
 
 
+----
+-- Replaces the objectives of all sides matching a StandardSideFilter with the given one.
+-- w4l exclusive
+set_sides_objectives = (cfg) =>
+
+    bullet = cfg.bullet or '•'
+    str_win  = '<big>Victory:</big>\n'
+    str_lose = '<big>Defeat:</big>\n'
+
+    for objective in *cfg.objective
+
+        str = (objective.bullet or bullet) .. ' '
+
+        if caption = objective.caption
+            str ..= caption .. '\n'
+        if description = objective.description
+            str ..= description .. '\n'
+
+        switch objective.condition
+            when 'win'
+                str_win  ..= str
+            when 'lose'
+                str_lose ..= str
+
+    str_gold = ''
+    if gold_carryover = cfg.gold_carryover
+        str_gold ..= 'Gold carryover:\n'
+        if gold_carryover.bonus
+            str_gold ..= bullet .. ' Early finish bonus.\n'
+        else
+            -- todo replace with the actual string in attic
+            str_gold ..= bullet .. ' No early finish bonus.'
+        str_gold ..= bullet .. ' ' .. gold_carryover.carryover_percentage ..
+            ' of gold carried over to the next scenario.'
+
+    str = "<span size='larger'>" .. @scenario.name ..
+        '</span>\n\n' .. str_win .. '\n' .. str_lose ..
+        '\n' .. str_gold .. '\n\n\n'
+
+    sides = get_sides(@, cfg)
+    for side in *sides
+        side.objectives = str
+        side.objectives_changed = true
+
+    print str
+
+    if #sides == 0
+        return false
+    else
+        return true
+
 
 
 {
+    :set_sides_objectives
     -- :sides
     :is_fogged
     :is_shrouded
