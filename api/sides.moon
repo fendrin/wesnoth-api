@@ -136,11 +136,12 @@ get_sides = (filter) =>
             return {@board.sides[side]}
         else return {}
 
-    -- @todo check for filter.side and preselect
-    return for s in *@board.sides
-        if match_side(s, filter)
-            side
-        else continue
+    sides = {}
+    for i, s in ipairs(@board.sides)
+        if match_side(@, i, filter)
+            table.insert(sides, s)
+
+    return sides
 
 
 ----
