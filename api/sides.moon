@@ -424,8 +424,6 @@ set_sides_objectives = (cfg) =>
         side.objectives = str
         side.objectives_changed = true
 
-    print str
-
     if #sides == 0
         return false
     else
