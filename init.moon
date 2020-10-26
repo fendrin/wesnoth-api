@@ -69,7 +69,7 @@ insert_submodule = (submodule, module) ->
                 module[key] = thing
 
 
-submodules = {"actions", "map", "units", "sides", "pathfinder", "interface", "variables"}
+submodules = {"actions", "map", "units", "sides", "pathfinder", "interface", "variables", 'misc'}
 for submodule_name in *submodules
     submodule = require"api.#{submodule_name}"
     insert_submodule(submodule, wesnoth)
