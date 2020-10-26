@@ -368,6 +368,78 @@ isArray = (t) ->
     return true
 
 
+side_turn = (X, Y) =>
+
+    import fire_event from require'api.actions'
+    fire_event(@, 'side turn')
+
+    fire_event(@, "side #{X} turn")
+    fire_event(@, "side turn #{X}")
+    fire_event(@, "side #{X} turn #{Y}")
+
+    -- Like side turn,
+    -- triggers just before a side is taking control but after healing,
+    -- calculating income, and restoring unit movement and status.
+    -- WML variable side_number holds the number of this side.
+    -- Note that the turn refresh event does occur on turn 1,
+    -- even though healing, income and unit refreshing do not.
+    fire_event(@, "turn refresh")
+
+    fire_event(@, "side #{X} turn refresh")
+    fire_event(@, "turn #{X} refresh")
+    fire_event(@, "side #{X} turn #{Y} refresh")
+
+    side = @board.sides[X]
+
+    if side.objectives_changed
+
+        import show_sides_objectives from require'api.interface'
+        assert(show_sides_objectives)
+        side.objectives_changed = false
+        show_sides_objectives(@, {side: X})
+
+
+new_turn = (turn, side=1) =>
+
+    import fire_event from require'api.actions'
+    fire_event(@, "turn #{@current.side} end")
+
+    if turn != @current.turn
+        fire_event(@, 'turn end')
+        @current.turn = turn
+        fire_event(@, "turn #{turn}")
+        fire_event(@, 'new turn')
+
+    side_turn(@, side, turn)
+
+
+----
+-- like [endturn] actionwml,
+-- has a integer parmaeter that allows to specify the next side that should gain control,
+-- any integer in the range [1, 2*nsides] is allowed,
+-- where a number greater than nsides also changes the turn counter by one.
+-- wesnoth.end_turn ([next_side])
+end_turn = (next_side) =>
+
+    current = @current.side
+    -- todo implement handling of the next_side parameter
+    unless next_side
+        next_side = current + 1
+
+    nsides    = #@board.sides
+    max_sides = 2*nsides
+
+    -- todo log output
+    return false if next_side > max_sides
+
+    turn = @current.turn
+    if next_side > nsides
+        next_side -= nsides
+        turn += 1
+
+    return new_turn(@, turn, next_side)
+
+
 ----
 -- Checks if the given arguement is already
 -- @param t item to wrap
@@ -379,17 +451,21 @@ wrapInArray = (t) ->
 
 {
     :wrapInArray
-    :try
-    :game_config
-    :get_era
-    :current
-    :synchronize_choice
-    :get_image_size
-    :compare_versions
-    :have_file
-    :debug
-    :get_time_stamp
-    :random -- (Version 1.13.2 and later only)
+
+    :end_turn
+
+
+    -- :try
+    -- :game_config
+    -- :get_era
+    -- :current
+    -- :synchronize_choice
+    -- :get_image_size
+    -- :compare_versions
+    -- :have_file
+    -- :debug
+    -- :get_time_stamp
+    -- :random -- (Version 1.13.2 and later only)
     -- helper.set_wml_tag_metatable
     -- helper.modify_unit
     -- helper.move_unit_fake
