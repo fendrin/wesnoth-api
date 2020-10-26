@@ -195,6 +195,10 @@ load_scenario = (id) =>
 -- Start the scenario that has been loaded before or fail.
 start_scenario = () =>
     assert(@scenario, "No scenario loaded.")
+
+    -- @todo check how attic handles this value
+    @current.side = 0
+
     if story = @scenario.story
         default_title = @scenario.name
         show_story(@, story, default_title)
